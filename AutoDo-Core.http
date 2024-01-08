@@ -1,0 +1,6 @@
+@AutoDo_Core_HostAddress = http://localhost:5057
+
+GET {{AutoDo_Core_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

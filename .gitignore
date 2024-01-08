@@ -1,0 +1,5 @@
+*.dll
+/bin
+*.exe
+/obj
+/Migrations
