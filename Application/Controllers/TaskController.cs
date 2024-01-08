@@ -49,11 +49,11 @@ public class TaskController : Controller
         return Ok(TaskEntry);
     }
 
-    [HttpDelete]
-    public ActionResult<bool> DeleteTask(SpecificTaskItemDTO TaskEntry)
+    [HttpDelete("{TaskId}")]
+    public ActionResult<bool> DeleteTask([FromRoute] int TaskId)
     {
         var User = _GetUserFromContext();
-        var DeletedTask = _taskRepositroy.DeleteTask(TaskEntry.TaskId, User);
+        var DeletedTask = _taskRepositroy.DeleteTask(TaskId, User);
         return Ok(DeletedTask);
     }
 

@@ -3,6 +3,16 @@ using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowOrigin",
+                builder => builder
+                    .WithOrigins("http://localhost:3000") // Add the origins you want to allow
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+            );
+        });
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -21,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowOrigin");
 app.UseHttpsRedirection();
 app.UseMiddleware<JWTAuthenticationMiddleware>();
 app.UseMiddleware<GetOrCreateUserClaim>();
