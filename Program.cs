@@ -22,6 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TaskDBContext>();
 builder.Services.AddScoped<IUserRepository, UserRepositoryV1>();
 builder.Services.AddScoped<ITaskRepository, TaskRepositoryV1>();
+builder.Services.AddTransient<IGenerativeService, GenerativeService>();
 
 var app = builder.Build();
 

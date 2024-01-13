@@ -7,11 +7,13 @@ public class TaskController : Controller
 {
     private readonly ITaskRepository _taskRepositroy;
     private readonly IUserRepository _userRepositroy;
+    private readonly IGenerativeService _generativeService;
 
-    public TaskController(ITaskRepository taskRepository, IUserRepository userRepository)
+    public TaskController(ITaskRepository taskRepository, IUserRepository userRepository, IGenerativeService generativeService)
     {
         _taskRepositroy = taskRepository;
         _userRepositroy = userRepository;
+        _generativeService = generativeService;
     }
     
     private User _GetUserFromContext(){
@@ -69,7 +71,7 @@ public class TaskController : Controller
     public ActionResult<bool> CreateTasksWithImage([FromForm] IFormFile file){
         var UserClaim = HttpContext.Items["User"] as ClaimsPrincipal;
         var token = UserClaim?.FindFirst("Token")?.Value;
-        GenerativeService.UploadImage(file, token);
+        _generativeService.UploadImage(file, token);
         return Ok(true);
     }
 }

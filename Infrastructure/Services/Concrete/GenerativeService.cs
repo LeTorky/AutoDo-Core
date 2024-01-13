@@ -1,9 +1,13 @@
 using System.Net.Http.Headers;
 
-class GenerativeService{
-public static async Task UploadImage(IFormFile file, string AccessToken)
+public class GenerativeService:IGenerativeService{
+private IConfiguration configuration;
+public GenerativeService(IConfiguration configuration){
+    this.configuration = configuration;
+}
+public async Task UploadImage(IFormFile file, string AccessToken)
     {
-        string serviceUrl = "http://localhost:8000/image/list/";
+        string serviceUrl = configuration["Services:AI:Domain"] + "image/list/";
 
         using (var httpClient = new HttpClient())
         {
